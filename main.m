@@ -16,7 +16,9 @@ close all
 for i = 1:5
     pic = fixed_frames_cell{i};
     idx = index_cell{i};
-    figure
     pic = setScratches(pic,idx);
+    subplot(5,2,2*i-1)
+    imshow(picture_cell{i})
+    subplot(5,2,2*i)
     imshow(pic)
 end
