@@ -16,17 +16,17 @@ function idx = getLABScratches(rgb,lightness_bound,green_to_red_bound,blue_to_ye
 %       idx: binary matrix of the same size as the original image where 1
 %           represents a scratch and 0 represents no scratch
 
-%   convert RGB image to  LAB image
+%   Convert RGB image to  LAB image
     cform = makecform('srgb2lab');
     lab = applycform(rgb, cform);
     
-%   enhance contrast in each of the three LAb layers using histogram
-%   equalization
-    lightness = histeq(lab(:,:,1));
-    green_to_red = histeq(lab(:,:,2));
-    blue_to_yellow = histeq(lab(:,:,3));
+%   Enhance contrast of the image using histogram equalization
+    lab = histeq(lab); 
+    lightness = lab(:,:,1);
+    green_to_red = lab(:,:,2);
+    blue_to_yellow = lab(:,:,3);
     
-%   create binary matrices for each layer where the intensity is in
+%   Create binary matrices for each layer where the intensity is in
 %   the corresponding specified interval from input lightness_bound,
 %   green_to_red_bound and blue_to_yellow_bound. The binary matrices are
 %   called l, a and b. 
@@ -40,11 +40,11 @@ function idx = getLABScratches(rgb,lightness_bound,green_to_red_bound,blue_to_ye
     b2 = blue_to_yellow<=blue_to_yellow_bound(2);
     b = logical(b1.*b2);
     
-%   create a binary matrix where the intensity is in the threshold
+%   Create a binary matrix where the intensity is in the threshold
 %   interval in all three layers
     idx = logical(l.*a.*b);
     
-%   if input show_pic is true: display each enhanced image lightness,
+%   If input show_pic is true: display each enhanced image lightness,
 %   green_to_red and blue_to_yellow and corresponding binary matrix (l, a,
 %   b) where scratches have been detected
     if show_pic

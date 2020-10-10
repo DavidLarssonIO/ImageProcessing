@@ -16,13 +16,14 @@ function idx = getRGBScratches(rgb,red_bound,green_bound,blue_bound,show_pic)
 %       idx: binary matrix of the same size as the original image where 1
 %           represents a scratch and 0 represents no scratch
 
-%   Enhance contrast in each of the three RGB color layers using
-%   histogram equalization
-    red = histeq(rgb(:,:,1));
-    green = histeq(rgb(:,:,2));
-    blue = histeq(rgb(:,:,3));
+%   Enhance contrast of the image using histogram equalization
+    rgb = histeq(rgb);
     
-%   create binary matrices for each color layer where the intensity is in the
+    red = rgb(:,:,1);
+    green = rgb(:,:,2);
+    blue = rgb(:,:,3);
+    
+%   Create binary matrices for each color layer where the intensity is in the
 %   corresponding specified interval from input red_bound, green_bound
 %   and blue_bound. The binary matrices are called r,g and b. 
     r1 = red>=red_bound(1);
@@ -35,11 +36,11 @@ function idx = getRGBScratches(rgb,red_bound,green_bound,blue_bound,show_pic)
     b2 = blue<=blue_bound(2);
     b = logical(b1.*b2);
     
-%   create a binary matrix where the intensity is in the threshold
+%   Create a binary matrix where the intensity is in the threshold
 %   interval in all three color layers
     idx = logical(r.*g.*b);
     
-%   if input show_pic is true: display each enhanced image red, green and
+%   If input show_pic is true: display each enhanced image red, green and
 %   blue and corresponding binary matrix (r, g and b) where scratches
 %   have been detected
     if show_pic

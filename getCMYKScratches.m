@@ -19,18 +19,19 @@ function idx = getCMYKScratches(rgb,cyan_bound, magenta_bound, yellow_bound, k_b
 %           represents a scratch and 0 represents no scratch
 
 
-%   convert RGB image to  CMYK image
+%   Convert RGB image to  CMYK image
     cform = makecform('srgb2cmyk');
     cmyk = applycform(rgb, cform);
     
-%   enhance contrast in each of the four CMYK color layers using
-%   histogram equalization
-    cyan = histeq(cmyk(:,:,1));
-    magenta = histeq(cmyk(:,:,2));
-    yellow = histeq(cmyk(:,:,3));
-    black = histeq(cmyk(:,:,4));
-    
-%   create binary matrices for each color layer where the intensity is in
+%   Enhance contrast of image using histogram equalization
+    cmyk = histeq(cmyk);
+
+    cyan = cmyk(:,:,1);
+    magenta = cmyk(:,:,2);
+    yellow = cmyk(:,:,3);
+    black = cmyk(:,:,4);
+
+%   Create binary matrices for each color layer where the intensity is in
 %   the corresponding specified interval from input cyan_bound,
 %   magenta_bound, cyan_bound and k_bound. The binary matrices are called
 %   c, m, y and k
@@ -47,11 +48,11 @@ function idx = getCMYKScratches(rgb,cyan_bound, magenta_bound, yellow_bound, k_b
     k2 = black<=k_bound(2);
     k = logical(k1.*k2);
     
-%   create a binary matrix where the intensity is in the threshold
+%   Create a binary matrix where the intensity is in the threshold
 %   interval in all four color layers
     idx = logical(c.*m.*y.*k);
     
-%   if input show_pic is true: display each enhanced image cyan, magenta,
+%   If input show_pic is true: display each enhanced image cyan, magenta,
 %   ýellow and black and corresponding binary matrix (c, m, y and k)
 %   were scratches have been detected
     if show_pic
