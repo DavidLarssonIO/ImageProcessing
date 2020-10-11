@@ -10,7 +10,7 @@ positions(1:5,2) = 1; % set elements representing the images in the middle colum
 picture_cell = getPictures(picture,width,height,border,positions); % get images in the middle column
 show_pic = false;
 % Detect scracthes in each of the images in the middle column 
-scratch_index = getSchratches(picture_cell,show_pic); 
+scratch_index = getScratches(picture_cell,show_pic); 
 
 % Repair pixels (by taking the time development into account) where
 % scratches have been detected in each of the images and save the indices
