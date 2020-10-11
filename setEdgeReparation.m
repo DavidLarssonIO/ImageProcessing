@@ -15,12 +15,12 @@ function [fixed_frames_cell,tmp_index_cell] = setEdgeReparation(picture_cell,ind
     tmp_index_cell = cell(size(index_cell));
     fixed_frames_cell = cell(size(picture_cell));
   
-%   vectors containing the shift in number of pixels in x and y direction
+%   vectors containing the shift in number of pixels in horizontal and vertical direction
 %   of the background between to consecutive images in the time
 %   sequence (i.e. the images in column 2 of the original grid image
 %   film1_big.jpg)
-    y = [7,6,6,5]; 
-    x = [4,0,0,0];
+    horizontal_camera_comp = [7,6,6,5]; 
+    vertical_camera_comp = [4,0,0,0];
 
 %   Repair the scratches in each image in picture_cell by taking the time
 %   development into account.
@@ -33,20 +33,20 @@ function [fixed_frames_cell,tmp_index_cell] = setEdgeReparation(picture_cell,ind
         if i == 1
 %           using function fixFrame to compare the first picture with the
 %           second 
-            [fixed_frame,not_fixed_index] = fixFrame(picture_cell{i},picture_cell{i+1},index_cell{i},index_cell{i+1},[x(1),y(1)]);
+            [fixed_frame,not_fixed_index] = fixFrame(picture_cell{i},picture_cell{i+1},index_cell{i},index_cell{i+1},[vertical_camera_comp(1),horizontal_camera_comp(1)]);
             fixed_frames_cell{i} = fixed_frame;
             tmp_index_cell{i} = not_fixed_index;
         elseif i == length(picture_cell)
 %           using function fixFrameTMinus to compare the last image with
 %           the image before that one
-            [fixed_frame,not_fixed_index] = fixFrameTMinus(picture_cell{i},picture_cell{i-1},index_cell{i},index_cell{i-1},[x(4),y(4)]);
+            [fixed_frame,not_fixed_index] = fixFrameTMinus(picture_cell{i},picture_cell{i-1},index_cell{i},index_cell{i-1},[vertical_camera_comp(end),horizontal_camera_comp(end)]);
             fixed_frames_cell{i} = fixed_frame;
             tmp_index_cell{i} = not_fixed_index;
         else
 %           using function fixFrame and fixFrameTMinus to compare the image
 %           with the one before and after
-            [fixed_frame,not_fixed_index] = fixFrameTMinus(picture_cell{i},picture_cell{i-1},index_cell{i},index_cell{i-1},[x(i-1),y(i-1)]);
-            [fixed_frame,not_fixed_index] = fixFrame(fixed_frame,picture_cell{i+1},not_fixed_index,index_cell{i+1},[x(i),y(i)]);
+            [fixed_frame,not_fixed_index] = fixFrameTMinus(picture_cell{i},picture_cell{i-1},index_cell{i},index_cell{i-1},[vertical_camera_comp(i-1),horizontal_camera_comp(i-1)]);
+            [fixed_frame,not_fixed_index] = fixFrame(fixed_frame,picture_cell{i+1},not_fixed_index,index_cell{i+1},[vertical_camera_comp(i),horizontal_camera_comp(i)]);
             fixed_frames_cell{i} = fixed_frame;
             tmp_index_cell{i} = not_fixed_index;       
         end
