@@ -1,8 +1,6 @@
 function [] = rgb_hist(picture)
 figure
-subplot(2,1,1)
-imshow(picture)
-
+picture = histeq(picture);
 Red = picture(:,:,1);
 Green = picture(:,:,2);
 Blue = picture(:,:,3);
@@ -10,7 +8,12 @@ Blue = picture(:,:,3);
 [yRed, x] = imhist(Red);
 [yGreen, x] = imhist(Green);
 [yBlue, x] = imhist(Blue);
-subplot(2,1,2)
 plot(x, yRed, 'Red', x, yGreen, 'Green', x, yBlue, 'Blue');
+area(x(yBlue>0),yBlue(yBlue>0),'EdgeColor','b','FaceColor','b','FaceAlpha',0.5)
+hold on
+area(x(yGreen>0),yGreen(yGreen>0),'EdgeColor','g','FaceColor','g','FaceAlpha',0.5)
+x_tmp = x(1:201);
+yRed_tmp = yRed(1:201);
+area(x_tmp(yRed_tmp>0),yRed_tmp(yRed_tmp>0),'EdgeColor','r','FaceColor','r','FaceAlpha',0.5)
 end
 
