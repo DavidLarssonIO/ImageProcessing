@@ -24,7 +24,9 @@ function edge_index = getEdgesDetection(picture)
     hori_edges = circshift(hori_edges,1,1);
     hori_edges2 = logical(filter2(sbv, temp(:,:,1))<-thresh);
     hori_edges2 = circshift(hori_edges2,-1,1);
-       
-    edge_index = hori_edges+hori_edges2+vert_edges+vert_edges2;
+    saveas(imshow(hori_edges+hori_edges2),"../hori_edge.png")
+    saveas(imshow(vert_edges+vert_edges2),"../vert_edge.png")
+    edge_index = logical(hori_edges+hori_edges2+vert_edges+vert_edges2);
+    saveas(imshow(edge_index),"../both_edge.png")
 end
 
