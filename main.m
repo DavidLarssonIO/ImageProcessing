@@ -1,4 +1,4 @@
-clear, clc
+clear, clc, close all
 picture = webread('http://fy.chalmers.se/~romeo/RRY025/mfiles/film1_big.jpg'); 
 sz = size(picture);
 border = [5 3]; % size of border dividing the images in the original grid image
@@ -11,7 +11,7 @@ picture_cell = getPictures(picture,width,height,border,positions); % get images 
 show_pic = false;
 % Detect scracthes in each of the images in the middle column 
 scratch_index = getScratches(picture_cell,show_pic); 
-
+%%
 % Repair pixels (by taking the time development into account) where
 % scratches have been detected in each of the images and save the indices
 % which contain a scratch but haven't been repaired. 
