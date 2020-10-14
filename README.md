@@ -10,4 +10,5 @@ In this figure the left column shows the original frames. The middle column show
 
 # Results
 ![](results.png)
+
 Original five (left), provided restored images (middle) and resulting restored images of this project (right).
