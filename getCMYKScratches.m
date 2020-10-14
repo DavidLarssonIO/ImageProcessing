@@ -33,7 +33,7 @@ function idx = getCMYKScratches(rgb,cyan_bound, magenta_bound, yellow_bound, k_b
 
 %   Create binary matrices for each color layer where the intensity is in
 %   the corresponding specified interval from input cyan_bound,
-%   magenta_bound, cyan_bound and k_bound. The binary matrices are called
+%   magenta_bound, yellow_bound and k_bound. The binary matrices are called
 %   c, m, y and k
     c1 = cyan>=cyan_bound(1);
     c2 = cyan<=cyan_bound(2);
@@ -53,7 +53,7 @@ function idx = getCMYKScratches(rgb,cyan_bound, magenta_bound, yellow_bound, k_b
     idx = logical(c.*m.*y.*k);
     
 %   If input show_pic is true: display each enhanced image cyan, magenta,
-%   ıellow and black and corresponding binary matrix (c, m, y and k)
+%   yellow and black and corresponding binary matrix (c, m, y and k)
 %   were scratches have been detected
     if show_pic
         figure,clf
