@@ -7,3 +7,7 @@ One major problem affecting old movies is the presence of scratches. Devise a si
 In this figure the left column shows the original frames. The middle column shows the frames after colour correction. The final column shows the frames after applying a scratch removal algorithm. Load this image into matlab using imread, then extract a frame from the middle column. This will have three colour layers (red, green, blue). Apply initially your algorithm to one frame of one of the colour layers. Use the multi-colour and multi-frame data set to aid the scratch removal algorithm.
 
 [Help :-)](http://fy.chalmers.se/~romeo/RRY025/projects/p6_help.pdf)
+
+# Results
+![](results.png)
+Original five (left), provided restored images (middle) and resulting restored images of this project (right).
