@@ -15,14 +15,17 @@ function edge_index = getEdgesDetection(picture)
     thresh = 0.3; % threshold to use in Sobel filters
     
     % create binary matrices containing horizontal and vertical edges
-    % respectively 
+    % respectively
     vert_edges = logical(filter2(sbh, temp(:,:,1))>thresh);
     vert_edges2 = logical(filter2(sbh, temp(:,:,1))<-thresh);
+    hori_edges = logical(filter2(sbv, temp(:,:,1))>thresh);
+    hori_edges2 = logical(filter2(sbv, temp(:,:,1))<-thresh);
+    
+    % Because of the discrete derivitve in the sobel we need to
+    % add a shift so that the scratch detection gets in the right place.
     vert_edges = circshift(vert_edges,1,2);
     vert_edges2 = circshift(vert_edges2,-1,2);
-    hori_edges = logical(filter2(sbv, temp(:,:,1))>thresh);
     hori_edges = circshift(hori_edges,1,1);
-    hori_edges2 = logical(filter2(sbv, temp(:,:,1))<-thresh);
     hori_edges2 = circshift(hori_edges2,-1,1);
        
     edge_index = logical(hori_edges+hori_edges2+vert_edges+vert_edges2);
