@@ -9,8 +9,8 @@ function edge_index = getEdgesDetection(picture)
 %           containing information about vertical and horizontal edges.
 %           Each element is in the range 0-4.
 
-    sbv = [ -1 -2 -1; 0 0 0;1 2 1]; % Sobel vertical filter
-    sbh = [-1 0 1; -2 0 2; -1 0 1]; % Sobel horizontal filter
+    sbv = [ -1 -2 -1; 0 0 0;1 2 1] % Sobel vertical filter
+    sbh = [-1 0 1; -2 0 2; -1 0 1] % Sobel horizontal filter
     picture = im2double(picture);
     red = 1-picture(:,:,1);
     thresh = 0.3; % threshold to use in Sobel filters
